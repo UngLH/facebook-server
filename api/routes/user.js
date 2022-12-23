@@ -13,12 +13,16 @@ const { Storage } = require('@google-cloud/storage');
 const MAX_SIZE_IMAGE = 4 * 1024 * 1024; // for 4MB
 const {getUserIDFromToken} = require('../utils/getUserIDFromToken');
 
-const storage = new Storage({ keyFilename:"social-network-9b13f-0321d923c18a.json"
-});
+const storage = new Storage({
+  projectId: process.env.GCLOUD_PROJECT_ID,
+  credentials: {
+      private_key: process.env.private_key,
+      client_email: process.env.client_email
+  }});
 
 // Create a bucket associated to Firebase storage bucket
 const bucket =
-    storage.bucket("social-network-9b13f.appspot.com");
+  storage.bucket("social-network-9b13f.appspot.com");
 
 // Initiating a memory storage engine to store files as Buffer objects
 const uploader = multer({
