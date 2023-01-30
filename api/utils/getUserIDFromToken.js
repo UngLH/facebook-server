@@ -4,6 +4,7 @@ const User = require('../models/User');
 module.exports.getUserIDFromToken = async function(token) {
     try {
         const verified = jwt.verify(token, process.env.jwtSecret);
+        console.log(process.env.jwtSecret);
         let user;
         try {
             user = await User.findById(verified.id);
